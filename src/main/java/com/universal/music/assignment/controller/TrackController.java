@@ -21,7 +21,7 @@ public class TrackController {
 	TrackServiceI trackService;
 	
 	//Response for this API is not defined in requirements. Keeping String for simplicity. 
-	//In real application it should be a JSON with status, error code and error message
+	//In real application it should be a JSON with status and optional error code and error message
 	@PostMapping("/createTrack") 
 	public String createTrack(@RequestParam(required = true) String isrc) {		
 		log.info("Creating Track for ISRC={}", isrc);

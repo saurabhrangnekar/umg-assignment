@@ -35,8 +35,8 @@ public class TrackService implements TrackServiceI {
 	@Autowired
 	AssignmentConstants constants;
 	
-	//Ideally this method should be in some other class which caches it. However as per guidelines we are not caching it. 
-	//Hence for simplicity keeping the method here 
+	//Ideally this method should be in some other class which caches it. However as per guidelines we are not caching it. Hence for simplicity keeping the method here
+	//This method will throw Exceptions in case the credentials are Invalid. Its handled in the calling procedure. In real application, this should be handled differently.
 	private String getToken() {
 		
 		String authKey = constants.CLIENT_ID +":"+constants.CLIENT_SECRET;
@@ -49,9 +49,9 @@ public class TrackService implements TrackServiceI {
 		map.add("grant_type","client_credentials");
 		
 		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);
-			
-		//Invalid credential will throw Exception. Its handled in the calling procedure. 
-		//In real application, this should be handled differently.
+		
+		//Mapping JSON on Map as its simple key value pair and we are interested in only one of the entries
+		//It would be more typesafe to create a custom class and map the JSON on it. However, for simple JSONs Map works fine 
 		ResponseEntity<Map> res = new RestTemplate().exchange(AssignmentConstants.URL_FOR_TOKEN, HttpMethod.POST, entity, Map.class, List.of());				
 		String token = (String)res.getBody().get("access_token");
 		
@@ -60,8 +60,7 @@ public class TrackService implements TrackServiceI {
 	}	
 	
 	@Override
-	public String createTask(String isrc) {
-		
+	public String createTask(String isrc) {		
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setBearerAuth(getToken());

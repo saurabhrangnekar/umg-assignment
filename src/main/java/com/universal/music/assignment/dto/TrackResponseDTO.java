@@ -27,8 +27,8 @@ public class TrackResponseDTO {
 	class TrackResponse {
 		
 		//Keeping the fields names same as Model. This allows us to copy them with one generic method call.
-		//However, this might expose the column names to API user. 
-		//That issue can be mitigated by using different naming convention for columns and mapping those on model class properties explicitly  
+		//However, this might expose the column names to API consumer. 
+		//This risk can be mitigated by using different naming convention for columns and mapping those on model class properties explicitly  
 		private String isrc;
 		private String name;
 		private int duration;
